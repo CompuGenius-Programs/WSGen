@@ -149,7 +149,6 @@ paragraph_format.line_spacing = output_linespacing
 font.name = output_font
 font.size = Pt(output_fontsize)
 
-
 # for file in input_files:
 #     new_text = []
 #
@@ -171,7 +170,7 @@ font.size = Pt(output_fontsize)
 #                 t = t.rjust(output_linecharlength, "_")
 #             else:
 #                 t = t + ' '
-#                 t = t.ljust(output_linecharlength, "_")
+#                 t = t.just(output_linecharlength, "_")
 #             new_text.append(t)
 #         else:
 #             new_text.append('')
@@ -198,7 +197,7 @@ for file in input_files:
 
     input_file = str(input_folder_name + file)
 
-    i = open(input_file, "r", encoding='utf-8')
+    i = open(input_file, "r", encoding='windows-1255')
     inpt = i.read()
     i.close()
 
@@ -209,22 +208,6 @@ for file in input_files:
             count = 0
             t = t.rstrip()
             t = t.lstrip()
-            # if output_righttoleft.lower() == "true":
-            #     t = ' ' + t
-            #     t = t.rjust(output_linecharlength, "_")
-            # else:
-            #     t = t + ' '
-            #     t = t.ljust(output_linecharlength, "_")
-            #
-            # for char in t:
-            #     if char == "_":
-            #         count += 1
-            #
-            # if count <= 25:
-            #     if output_righttoleft.lower() == "true":
-            #         t = "_" * 25 + t
-            #     else:
-            #         t = t + "_" * 25
 
             words = t.split()
             extra_chars = len(t) - output_linecharlength
@@ -235,23 +218,40 @@ for file in input_files:
                 for word in range(len(words)):
                     word_length += len(words[-(word + 1)])
                     if extra_chars == word_length:
-                        t = t.ljust((math.ceil(len(t) / output_linecharlength) * output_linecharlength) - 1, "_")
+                        if output_righttoleft.lower() == "true":
+                            t = t.rjust((math.ceil(len(t) / output_linecharlength) * output_linecharlength) - 1, "_")
+                        else:
+                            t = t.ljust((math.ceil(len(t) / output_linecharlength) * output_linecharlength) - 1, "_")
                         break
                     elif extra_chars == word_length + 1:
-                        t = t.ljust((math.ceil(len(t) / output_linecharlength) * output_linecharlength) + 1, "_")
+                        if output_righttoleft.lower() == "true":
+                            t = t.rjust((math.ceil(len(t) / output_linecharlength) * output_linecharlength) + 1, "_")
+                        else:
+                            t = t.ljust((math.ceil(len(t) / output_linecharlength) * output_linecharlength) + 1, "_")
                         break
                     elif extra_chars < word_length + 1:
-                        t = t.ljust(((math.ceil(len(t) / output_linecharlength) * output_linecharlength) + 1) -
-                                    word_length, "_")
+                        if output_righttoleft.lower() == "true":
+                            t = t.rjust(((math.ceil(len(t) / output_linecharlength) * output_linecharlength) + 1) -
+                                        word_length, "_")
+                        else:
+                            t = t.ljust(((math.ceil(len(t) / output_linecharlength) * output_linecharlength) + 1) -
+                                        word_length, "_")
                         break
                     else:
                         pass
 
             else:
-                t = t.ljust(output_linecharlength, "_")
+                if output_righttoleft.lower() == "true":
+                    t = t.rjust(output_linecharlength, "_")
+                else:
+                    t = t.ljust(output_linecharlength, "_")
                 if abs(extra_chars) < output_minunderscorelength:
-                    t += " "
-                    t += "_" * output_linecharlength
+                    if output_righttoleft.lower() == "true":
+                        t = " " + t
+                        t = "_" * output_linecharlength + t
+                    else:
+                        t += " "
+                        t += "_" * output_linecharlength
             new_text.append(t)
         else:
             new_text.append('')

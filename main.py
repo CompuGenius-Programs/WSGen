@@ -160,15 +160,21 @@ paragraph_format.line_spacing = output_linespacing
 font.name = output_font
 font.size = Pt(output_fontsize)
 
+output_files = []
+
 for file in input_files:
     new_text = []
 
     input_file = str(input_folder_name + file)
 
-    i = open(input_file, "r", encoding='windows-1255')
-    inpt = i.read()
-    i.close()
-
+    try:
+        i = open(input_file, "r", encoding='utf-8')
+        inpt = i.read()
+        i.close()
+    except UnicodeDecodeError:
+        i = open(input_file, "r", encoding='windows-1255')
+        inpt = i.read()
+        i.close()
     inpt = inpt.splitlines()
 
     for t in inpt:
@@ -238,4 +244,9 @@ for file in input_files:
     if not os.path.exists(output_folder_name):
         os.mkdir(output_folder_name)
 
-    document.save('%s.docx' % output_name)
+    document_name = '%s.docx' % output_name
+    document.save(document_name)
+    output_files.append(document_name)
+
+for output_file in output_files:
+    os.system('start %s' % output_file)

@@ -111,7 +111,7 @@ def check_errors():
 
     if len(input_files) <= 0:
         print("NO INPUT TEXT FILE FOUND!")
-        print("CREATING ONE! PLEASE ADD TEXT TO IT!")
+        print("Creating one! Please verify the configurations!")
 
         f = open(str(input_folder_name + "input.txt"), "a")
         f.close()
@@ -123,7 +123,7 @@ def check_errors():
 
     if not get_font(output_font):
         print("FONT NOT INSTALLED!")
-        print("PLEASE INSTALL %s OR CHANGE THE FONT IN THE SETTINGS FILE!" % output_font)
+        print("Please install %s or change the font in the settings file!" % output_font)
 
         must_exit = True
 
@@ -175,6 +175,12 @@ for file in input_files:
         i = open(input_file, "r", encoding='windows-1255')
         inpt = i.read()
         i.close()
+
+    special_chars = ['.', ',', '/', '\\', "'", '"', '?', '<', '>', '!', '@', '(', ')', '-', '_', '[', ']']
+
+    for char in special_chars:
+        inpt = inpt.replace(char, '')
+
     inpt = inpt.splitlines()
 
     for t in inpt:

@@ -146,6 +146,7 @@ output_linespacing = float(config['OUTPUT']['linespacing'])
 output_linecharlength = int(config['OUTPUT']['linecharlength'])
 output_minunderscorelength = int(config['OUTPUT']['minunderscorelength'])
 output_righttoleft = str(config['OUTPUT']['righttoleft'])
+output_charstoremove = config(['OUTPUT']['charstoremove'])
 
 document = Document()
 paragraph = document.add_paragraph()
@@ -176,9 +177,7 @@ for file in input_files:
         inpt = i.read()
         i.close()
 
-    special_chars = ['.', ',', '/', '\\', "'", '"', '?', '<', '>', '!', '@', '(', ')', '-', '_', '[', ']', ':', ';']
-
-    for char in special_chars:
+    for char in output_charstoremove:
         inpt = inpt.replace(char, '')
 
     inpt = inpt.splitlines()

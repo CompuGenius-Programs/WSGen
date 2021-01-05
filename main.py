@@ -176,7 +176,7 @@ for file in input_files:
         inpt = i.read()
         i.close()
 
-    special_chars = ['.', ',', '/', '\\', "'", '"', '?', '<', '>', '!', '@', '(', ')', '-', '_', '[', ']']
+    special_chars = ['.', ',', '/', '\\', "'", '"', '?', '<', '>', '!', '@', '(', ')', '-', '_', '[', ']', ':', ';']
 
     for char in special_chars:
         inpt = inpt.replace(char, '')

@@ -88,6 +88,9 @@ def check_errors():
 
             '\n# Output Files Use Right-To-Left Formatting': None,
             'RightToLeft': False,
+            
+            '\n# Character to Remove From Output': None,
+            'CharsToRemove': ['.', ',', '/', '\\', "'", '"', '?', '<', '>', '!', '@', '(', ')', '-', '_', '[', ']', ':', ';'],
         }
 
         print("NO SETTINGS FILE FOUND!")

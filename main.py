@@ -186,7 +186,7 @@ for file in input_files:
     inpt = inpt.splitlines()
 
     for t in inpt:
-        if len(t) >= 1:
+        if len(t) > 1:
             count = 0
             t = t.rstrip()
             t = t.lstrip()

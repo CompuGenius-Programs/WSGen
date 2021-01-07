@@ -149,7 +149,7 @@ output_linespacing = float(config['OUTPUT']['linespacing'])
 output_linecharlength = int(config['OUTPUT']['linecharlength'])
 output_minunderscorelength = int(config['OUTPUT']['minunderscorelength'])
 output_righttoleft = str(config['OUTPUT']['righttoleft'])
-output_charstoremove = config(['OUTPUT']['charstoremove'])
+output_charstoremove = list(config['OUTPUT']['charstoremove'])
 
 document = Document()
 paragraph = document.add_paragraph()
@@ -186,7 +186,7 @@ for file in input_files:
     inpt = inpt.splitlines()
 
     for t in inpt:
-        if len(t) > 1:
+        if len(t) >= 1:
             count = 0
             t = t.rstrip()
             t = t.lstrip()
